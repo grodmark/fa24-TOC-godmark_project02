@@ -21,12 +21,12 @@ def check_next(transitions, curr, string, pos, path, all_paths, next_state, step
             if '_' == states[1]:
                 if states[0] == curr:
                     transition_found = 1
-                    curr_path = path + [[string[:pos], states[2], '_']]
+                    curr_path = path + [[string[:pos+1], states[2], '_']]
+                    string = string[:pos+1] + states[3] + string[pos+1:]
                     if states[4] == 'R':
                         new_pos = pos + 1
                     else:
                         new_pos = pos - 1
-                    #all_paths.append(curr_path)
                     curr_steps = steps + 1
                     all_paths = check_next(transitions, states[2], string, new_pos, curr_path, all_paths, None, curr_steps, max_steps)
         if not transition_found:
@@ -37,7 +37,8 @@ def check_next(transitions, curr, string, pos, path, all_paths, next_state, step
 
     for states in transitions:
         if states[0] == curr and states[1] == s:
-            curr_path = path + [[string[:pos], states[2], string[pos+1:]]]
+            curr_path = path + [[string[:pos+1], states[2], string[pos+1:]]]
+            string = string[:pos] + states[3] + string[pos+1:]
             if states[4] == 'R':
                 new_pos = pos + 1
             else:
