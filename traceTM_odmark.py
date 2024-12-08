@@ -4,7 +4,7 @@ import itertools
 import sys
 
 
-def check_next(transitions, curr, string, pos, path, all_paths, next_state, steps, max_steps):
+def check_next(transitions, curr, string, pos, path, all_paths, next_state, steps, max_steps, visited):
     if path is None:
         path = [curr]
 
@@ -14,6 +14,10 @@ def check_next(transitions, curr, string, pos, path, all_paths, next_state, step
     if max_steps > 0 and steps > max_steps:
         print("Error: Step Limit Exceeded")
         return None
+
+    if (curr, pos) in visited:
+        return all_paths
+    visited.add((curr, pos))
     
     if int(pos) >= len(string):
         transition_found = 0
@@ -21,14 +25,14 @@ def check_next(transitions, curr, string, pos, path, all_paths, next_state, step
             if '_' == states[1]:
                 if states[0] == curr:
                     transition_found = 1
+                    curr_string = string[:pos+1] + states[3] + string[pos+1:]
                     curr_path = path + [[string[:pos+1], states[2], '_']]
-                    string = string[:pos+1] + states[3] + string[pos+1:]
                     if states[4] == 'R':
                         new_pos = pos + 1
                     else:
                         new_pos = pos - 1
                     curr_steps = steps + 1
-                    all_paths = check_next(transitions, states[2], string, new_pos, curr_path, all_paths, None, curr_steps, max_steps)
+                    all_paths = check_next(transitions, states[2], curr_string, new_pos, curr_path, all_paths, None, curr_steps, max_steps, visited)
         if not transition_found:
             all_paths.append(path)
         return all_paths
@@ -37,14 +41,14 @@ def check_next(transitions, curr, string, pos, path, all_paths, next_state, step
 
     for states in transitions:
         if states[0] == curr and states[1] == s:
+            curr_string = string[:pos] + states[3] + string[pos+1:]
             curr_path = path + [[string[:pos+1], states[2], string[pos+1:]]]
-            string = string[:pos] + states[3] + string[pos+1:]
             if states[4] == 'R':
                 new_pos = pos + 1
             else:
                 new_pos = pos - 1
             curr_steps = steps + 1
-            all_paths = check_next(transitions, states[2], string, new_pos, curr_path, all_paths, None, curr_steps, max_steps)
+            all_paths = check_next(transitions, states[2], curr_string, new_pos, curr_path, all_paths, None, curr_steps, max_steps, visited)
     return all_paths
 
 parser = argparse.ArgumentParser(description="Parse inputs to determine cases")
@@ -75,14 +79,6 @@ parser.add_argument(
 # Parse the arguments
 args = parser.parse_args()
 
-# Print the parsed arguments
-print(f"Test File: {args.test_file}")
-print(f"Input String: {args.input_string}")
-if args.max_depth > 0:
-    print(f"Max Depth: {args.max_depth}")
-else:
-    print("Max Depth: Unlimited")
-
 reader = []
 
 try:
@@ -93,18 +89,26 @@ except:
     print("ERROR: File does not exist")
     sys.exit()
 
+
 machine = reader[0][0]
+print(machine)
 states = reader[1]
 q0 = reader[4][0]
 q_acc = reader[5]
 q_rej = reader[6]
 transitions = list(reader[7:])
 
+print(f"Input String: {args.input_string}")
+if args.max_depth > 0:
+    print(f"Max Depth: {args.max_depth}")
+else:
+    print("Max Depth: Unlimited")
 curr = q0
 steps = 0
 
 pos = 0
-final = check_next(transitions, curr, args.input_string, pos, [], None, None, 0, args.max_depth)
+visited = set()
+final = check_next(transitions, curr, args.input_string, pos, [], None, None, 0, args.max_depth, visited)
 
 print("Tree Depth:", max(len(path) for path in final))
 print("Number of Simulations:", sum(len(path) for path in final))
