@@ -11,7 +11,7 @@ def check_next(transitions, curr, string, pos, path, all_paths, next_state, step
     if all_paths is None:
         all_paths = []
     
-    if max_steps > 0 and steps > max_steps:
+    if steps > max_steps:
         print("Error: Step Limit Exceeded")
         return None
 
@@ -72,7 +72,7 @@ parser.add_argument(
 parser.add_argument(
     '--max_depth', 
     type=int, 
-    default=0,  # Default value if not provided
+    default=50,  # Default value if not provided
     help="The maximum depth (optional, default is 10)."
 )
 

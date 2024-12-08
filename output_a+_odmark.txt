@@ -1,0 +1,6 @@
+a plus
+Input String: aaa
+Max Depth: 15
+Tree Depth: 3
+Number of Simulations: 3
+[['a', 'q1', 'aa'], ['aa', 'q1', 'a'], ['aaa', 'q1', '']]

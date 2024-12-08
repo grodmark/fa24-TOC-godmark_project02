@@ -1,0 +1,7 @@
+{w | w has the same number of 0's and 1's} Nondeterministic
+Input String: 01
+Max Depth: 50
+Tree Depth: 5
+Number of Simulations: 5
+String accepted in: 5
+[['0', 'q1', '1'], ['_1', 'q3', ''], ['_', 'q5', 'x'], ['_x', 'q5', ''], ['_x', 'qacc', '_']]

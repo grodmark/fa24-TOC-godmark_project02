@@ -1,0 +1,8 @@
+a*b*c* Nondeterministic
+Input String: aabbbc
+Max Depth: 50
+Tree Depth: 7
+Number of Simulations: 13
+String accepted in: 7
+[['a', 'q0', 'abbbc'], ['aa', 'q0', 'bbbc'], ['aab', 'q1', 'bbc'], ['aabb', 'q1', 'bc'], ['aabbb', 'q2', 'c'], ['aabbbc', 'q2', '']]
+[['a', 'q0', 'abbbc'], ['aa', 'q0', 'bbbc'], ['aab', 'q1', 'bbc'], ['aabb', 'q1', 'bc'], ['aabbb', 'q2', 'c'], ['aabbbc', 'q3', ''], ['aabbbc', 'qacc', '_']]
