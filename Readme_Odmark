@@ -1,0 +1,27 @@
+Readme_Odmark
+Version 1 8/22/24
+
+A copy of this file should be included in the github repository with your project. Change the teamname above to your own
+Team name: Odmark
+Names of all team members: Grace Odmark
+Link to github repository: https://github.com/grodmark/fa24-TOC-godmark_project02/tree/main
+Which project options were attempted: Tracing NTM Behavior
+Approximately total time spent on project: 4 hours
+The language you used, and a list of libraries you invoked. Python
+csv, argparse, itertools, sys
+How would a TA run your program (did you provide a script to run a test case?)
+python3 traceTM_odmark.py <transitions csv file name> <input string> <optional --max_depth value>
+python3 traceTM_odmark.py equal01s.csv 01
+python3 traceTM_odmark.py a_plus.csv aaa
+A brief description of the key data structures you used, and how the program functioned.
+The key data structures I used were lists which were passed to the check_next function each time it ran. Then, I iterated through the list of transitions and compared current state and input with the transition options to determine how to proceed. I also tracked visited states with a visited set, and this helped ensure that the program didn’t stall or run at too high of a depth.
+A discussion as to what test cases you added and why you decided to add them (what did they tell you about the correctness of your code). Where did the data come from? (course website, handcrafted, a data generator, other)
+Below are the two test cases I used. These tested both a very simple machine (the a*) and a more complex machine with the equal number of 0s and 1s program. The added complexity came from having to change the tape and tracking previously visited states.
+python3 traceTM_odmark.py equal01s.csv 01
+python3 traceTM_odmark.py a_plus.csv aaa
+An analysis of the results, such as if timings were called for, which plots showed what? What was the approximate complexity of your program?
+The complexity is based on how many states there are in the machine and how long the string is. As there become more options of state transitions with the same current state and input, the complexity will increase immensely because of the nature of Depth-First Searches and how much parsing must be done.
+A description of how you managed the code development and testing.
+I managed the code development and testing by first considering how to recurisvely call the check_next function, and when to accept a transition. Something that was important in my development process was knowing how to modify variables in a way that wouldn’t mess things up if multiple transitions were possible on the same input and state. In testing, I observed whether the path taken for the string was something that would really happen, and whether or not a string should actually be tested.
+Did you do any extra programs, or attempted any extra test cases
+No
