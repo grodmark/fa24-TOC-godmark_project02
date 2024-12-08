@@ -26,7 +26,7 @@ def check_next(transitions, curr, string, pos, path, all_paths, next_state, step
                         new_pos = pos + 1
                     else:
                         new_pos = pos - 1
-                    all_paths.append(curr_path)
+                    #all_paths.append(curr_path)
                     curr_steps = steps + 1
                     all_paths = check_next(transitions, states[2], string, new_pos, curr_path, all_paths, None, curr_steps, max_steps)
         if not transition_found:
